@@ -1,0 +1,17 @@
+server:
+  port: 8085
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: path_route
+          uri: http://localhost:8081
+          predicates:
+            - Path=/**
+dubbo:
+  application:
+    name: weiapi-gateway
+    qos-port: 33333
+  registry:
+    address: nacos://localhost:8848
