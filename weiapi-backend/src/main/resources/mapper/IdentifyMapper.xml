@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.li.weiapibackend.mapper.IdentifyMapper">
+
+    <resultMap id="BaseResultMap" type="com.li.weiapibackend.model.domain.Identify">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="accessKey" column="accessKey" jdbcType="VARCHAR"/>
+            <result property="secretKey" column="secretKey" jdbcType="VARCHAR"/>
+            <result property="createTime" column="createTime" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="updateTime" jdbcType="TIMESTAMP"/>
+            <result property="isDelete" column="isDelete" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,accessKey,secretKey,
+        createTime,updateTime,isDelete
+    </sql>
+</mapper>

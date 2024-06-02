@@ -1,0 +1,46 @@
+spring:
+  application:
+    name: PartnerMatching
+  # 数据库配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://localhost:3306/weiapi
+    username: root
+    password: 12345
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+#  sql:
+#    init:
+#      schema-locations: classpath:db/schema-h2.sql
+#      data-locations: classpath:db/data-h2.sql
+server:
+  port: 8080
+
+mybatis-plus:
+  configuration:
+    # 关闭驼峰命名
+    map-underscore-to-camel-case: false
+    # 开启日志
+  #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      logic-delete-field: isDelete # 全局逻辑删除的实体字段名(since 3.3.0,配置后可以忽略不配置步骤2)
+      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
+      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
+  # 配置Mapper配置文件
+  mapper-locations: classpath:/mapper/*.xml
+
+dubbo:
+#  metadata-report:
+#    timeout: 10000
+  application:
+    name: weiapi-backend
+  protocol:
+    name: tri
+    port: 50052
+  registry:
+    address: nacos://localhost:8848
+#        address: zookeeper://${zookeeper.address:127.0.0.1}:2181
+

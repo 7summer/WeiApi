@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.li.weiapibackend.mapper.InterfaceInfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.li.weiapibackend.model.domain.InterfaceInfo">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="interfaceName" column="interfaceName" jdbcType="VARCHAR"/>
+            <result property="description" column="description" jdbcType="VARCHAR"/>
+            <result property="url" column="url" jdbcType="VARCHAR"/>
+            <result property="requestHeader" column="requestHeader" jdbcType="VARCHAR"/>
+            <result property="responseHeader" column="responseHeader" jdbcType="VARCHAR"/>
+            <result property="method" column="method" jdbcType="VARCHAR"/>
+            <result property="params" column="params" jdbcType="VARCHAR"/>
+            <result property="interfaceStatus" column="interfaceStatus" jdbcType="TINYINT"/>
+            <result property="createTime" column="createTime" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="updateTime" jdbcType="TIMESTAMP"/>
+            <result property="isDelete" column="isDelete" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,interfaceName,description,
+        url,requestHeader,responseHeader,
+        method,interfaceStatus,createTime,
+        updateTime,isDelete
+    </sql>
+
+    <select id="queryInterfaceInfo" resultType="com.li.weiapibackend.model.domain.InterfaceInfo">
+        select *
+        from interface_info
+        <where>
+            isDelete = 0
+            <if test="interfaceInfoQueryRequest.interfaceName != null">
+                and interfaceName like concat('%', #{interfaceInfoQueryRequest.interfaceName}, '%')
+            </if>
+            <if test="interfaceInfoQueryRequest.description != null">
+                and description like concat('%', #{interfaceInfoQueryRequest.description}, '%')
+            </if>
+            <if test="interfaceInfoQueryRequest.url != null">
+                and url like concat('%', #{interfaceInfoQueryRequest.url}, '%')
+            </if>
+            <if test="interfaceInfoQueryRequest.method">
+                and method = #{interfaceInfoQueryRequest.method}
+            </if>
+            <if test="interfaceInfoQueryRequest.interfaceStatus">
+                and interfaceStatus = #{interfaceInfoQueryRequest.interfaceStatus}
+            </if>
+        </where>
+        limit #{startIndex},#{pageSize}
+    </select>
+</mapper>
